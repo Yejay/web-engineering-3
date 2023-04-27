@@ -1,0 +1,34 @@
+.jumbotron {
+	max-width: 1800px;
+}
+
+.footer {
+	max-width: 100vw;
+	max-height: 100vh;
+	background-color: #212529;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+	padding: 2px;
+	margin: 5px;
+}
+
+.user-cards,
+.degree-cards,
+.application-cards {
+	background-color: #16181a !important;
+}
+
+body {
+	background-image: linear-gradient(to left top, #0059b1, #434187, #482d5f, #3d1f3d, #291421, #20131c, #181016, #0e0c0e, #151316, #19191c, #1d1f23, #212529);
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+h1,
+h4,
+p,
+hr {
+	color: white;
+}
