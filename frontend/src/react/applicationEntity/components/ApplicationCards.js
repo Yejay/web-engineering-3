@@ -20,8 +20,13 @@ function ApplicationCards() {
 		<div id='DegreeCourseApplicationManagementPageListComponent' className='d-flex flex-wrap'>
 			{applications &&
 				applications.map((application) => {
-					const deleteButtonId = `DegreeCourseApplicationItemDeleteButton${application.id}`;
-					const id = `DegreeCourseApplicationItem${application.id}`;
+					// Web 2
+					// const deleteButtonId = `DegreeCourseApplicationItemDeleteButton${application.id}`;
+					// const id = `DegreeCourseApplicationItem${application.id}`;
+
+					// Web 3
+					const deleteButtonId = `DegreeCourseApplicationItemDeleteButton${application.applicantUserID + application.degreeCourseShortName + application.targetPeriodYear}`;
+					const id = `DegreeCourseApplicationItem${application.applicantUserID + application.degreeCourseShortName + application.targetPeriodYear}`;
 					return (
 						<Card id={id} bg='dark' border='secondary' text='light' className='m-2 application-cards' style={{ width: '26.75rem' }} key={application.id}>
 							<Card.Body>

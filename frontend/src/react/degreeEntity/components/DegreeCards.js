@@ -29,11 +29,17 @@ function DegreeCards() {
 		<div id={dynamicID} className='d-flex flex-wrap'>
 			{degrees &&
 				degrees.map((degree) => {
-					const createApplicationId = `CreateDegreeCourseApplicationForDegreeCourse${degree.id}`;
+					// Web 2
+					// const createApplicationId = `CreateDegreeCourseApplicationForDegreeCourse${degree.id}`;
+					// const editButtonId = `DegreeCourseItemEditButton${degree.id}`;
+					// const deleteButtonId = `DegreeCourseItemDeleteButton${degree.id}`;
+					// const id = `DegreeCourseItem${degree.id}`;
 
-					const editButtonId = `DegreeCourseItemEditButton${degree.id}`;
-					const deleteButtonId = `DegreeCourseItemDeleteButton${degree.id}`;
-					const id = `DegreeCourseItem${degree.id}`;
+					// Web 3
+					const createApplicationId = `CreateDegreeCourseApplicationForDegreeCourse${degree.shortName}`;
+					const editButtonId = `DegreeCourseItemEditButton${degree.shortName}`;
+					const deleteButtonId = `DegreeCourseItemDeleteButton${degree.shortName}`;
+					const id = `DegreeCourseItem${degree.shortName}`;
 					return (
 						<Card id={id} bg='dark' border='secondary' text='light' className='m-2 degree-cards' style={{ width: '26.75rem' }} key={degree.id}>
 							<Card.Body>
