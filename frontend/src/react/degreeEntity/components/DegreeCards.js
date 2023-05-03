@@ -29,13 +29,13 @@ function DegreeCards() {
 		<div id={dynamicID} className='d-flex flex-wrap'>
 			{degrees &&
 				degrees.map((degree) => {
-					// Web 2
+					// Web 2 - Dynamische ID aus MongoDB, schwierig für die Nutzung von Playwright
 					// const createApplicationId = `CreateDegreeCourseApplicationForDegreeCourse${degree.id}`;
 					// const editButtonId = `DegreeCourseItemEditButton${degree.id}`;
 					// const deleteButtonId = `DegreeCourseItemDeleteButton${degree.id}`;
 					// const id = `DegreeCourseItem${degree.id}`;
 
-					// Web 3
+					// Web 3 - Umgestellt auf statische IDs, für die Nutzung von Playwright auch wenn dies eine schlechtere umsetzung
 					const createApplicationId = `CreateDegreeCourseApplicationForDegreeCourse${degree.shortName}`;
 					const editButtonId = `DegreeCourseItemEditButton${degree.shortName}`;
 					const deleteButtonId = `DegreeCourseItemDeleteButton${degree.shortName}`;
