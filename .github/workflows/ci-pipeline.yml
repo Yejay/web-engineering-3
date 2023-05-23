@@ -31,6 +31,6 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright tests
-        working-directory: ./frontend
-        run: npx playwright test
+        run: npx playwright test --config=playwright.config.js
+      
 
