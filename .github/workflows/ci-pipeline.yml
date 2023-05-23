@@ -19,11 +19,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
+        run: npm install
 
-      - name: Run tests
-        run: |
-          cd frontend
-          npm test
+      - name: Run Playwright tests
+        run: npx playwright test
