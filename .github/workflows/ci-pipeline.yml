@@ -20,10 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd web-engineering-3/frontend
+          cd frontend
           npm install
 
       - name: Run tests
         run: |
-          cd web-engineering-3/frontend
+          cd frontend
           npm test
