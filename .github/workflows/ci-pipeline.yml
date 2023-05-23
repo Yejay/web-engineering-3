@@ -19,7 +19,7 @@ jobs:
           node-version: 16
 
       - name: Change working directory
-        run: cd web-engineering-3/frontend
+        run: cd frontend
 
       - name: Install dependencies
         run: npm install
