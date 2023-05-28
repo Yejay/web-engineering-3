@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-
+require('dotenv').config();
 export default defineConfig({
 	testDir: './tests',
 
@@ -10,12 +10,20 @@ export default defineConfig({
 	/* Run tests in files in parallel */
 	fullyParallel: false,
 
+	/* Fail the build on CI if you accidentally left test.only in the source code. */
+	forbidOnly: !!process.env.CI,
+
+	/* Retry on CI only */
+	retries: process.env.CI ? 1 : 1,
+
+	/* Opt out of parallel tests on CI. */
+	workers: 1,
+
 	reporter: 'html',
 	use: {
-		baseURL: 'http://127.0.0.1:3000',
+		// baseURL: 'http://127.0.0.1:3000',
 
-		trace: 'retain-on-failure',
-
+		trace: 'on',
 		headless: true,
 		ignoreHTTPSErrors: true,
 		launchOptions: {
@@ -31,6 +39,11 @@ export default defineConfig({
 	},
 
 	projects: [
+		{
+			name: 'firefox',
+			use: { ...devices['Desktop Firefox'] },
+		},
+
 		{
 			name: 'chromium',
 			use: {
