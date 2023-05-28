@@ -1,10 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Wait for server to start
-until $(curl --output /dev/null --silent --head --fail http://localhost:3000); do
-    printf '.'
-    sleep 5
+set -e
+
+host="$1"
+shift
+cmd="$@"
+
+until curl -s "$host" > /dev/null; do
+    echo "Waiting for $host to start"
+    sleep 1
 done
 
-# Run tests
-cd frontend/tests && npx playwright test
+>&2 echo "$host is up - executing command"
+exec $cmd
