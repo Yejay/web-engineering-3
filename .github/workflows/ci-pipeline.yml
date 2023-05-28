@@ -25,18 +25,18 @@ jobs:
               run: ls
 
             - name: Install backend dependencies
-              run: cd web-engineering-3/backend-orlando-pinero && npm ci
+              run: cd backend-orlando-pinero && npm ci
 
             - name: Install frontend dependencies
-              run: cd web-engineering-3/frontend && npm ci
+              run: cd frontend && npm ci
 
             - name: Start backend server
-              run: cd web-engineering-3/backend-orlando-pinero && npm run start &
+              run: cd backend-orlando-pinero && npm run start &
               env:
                   MONGO_URL: mongodb://localhost:27017
 
             - name: Start frontend server
-              run: cd web-engineering-3/frontend && npm run start &
+              run: cd frontend && npm run start &
 
             - name: Run tests
-              run: cd web-engineering-3/frontend/tests && npx playwright test
+              run: cd frontend/tests && npx playwright test
