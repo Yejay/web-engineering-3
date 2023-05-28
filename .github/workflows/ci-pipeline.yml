@@ -1,79 +1,37 @@
-# name: CI
-
-# on: [push, pull_request]
-
-# jobs:
-#     build-and-test:
-#         runs-on: ubuntu-latest
-
-#         services:
-#             mongodb:
-#                 image: mongo:4.4
-#                 ports:
-#                     - 27017:27017
-
-#         steps:
-#             - name: Checkout code
-#               uses: actions/checkout@v3
-
-#             - name: Use Node.js 18
-#               uses: actions/setup-node@v3
-#               with:
-#                   node-version: 18
-
-#             - name: Check folder location
-#               run: ls
-
-#             - name: Install backend dependencies
-#               run: cd backend-kelvin && npm ci
-
-#             - name: Install frontend dependencies
-#               run: cd frontend && npm ci
-
-#             - name: Install Playwright browsers
-#               run: npx playwright install --with-deps
-
-#             - name: Start backend server
-#               run: cd backend-kelvin && npm run start &
-#               env:
-#                   MONGO_URL: mongodb://localhost:27017
-
-#             - name: Start frontend server
-#               run: cd frontend && npm run start &
-
-#             - name: Run tests
-#               run: cd frontend/tests && npx playwright test
-#             - uses: actions/upload-artifact@v3
-#               if: always()
-#               with:
-#                   name: playwright-report
-#                   path: playwright-report/
-#                   retention-days: 30
-
 name: CI
 
-on:
-    push:
-        branches:
-            - main
+on: [push, pull_request]
 
 jobs:
-    test:
+    build-and-test:
         runs-on: ubuntu-latest
+
         services:
             mongodb:
                 image: mongo:4.4
                 ports:
                     - 27017:27017
+
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Use Node.js 18
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - name: Check folder location
+              run: ls
 
             - name: Install backend dependencies
               run: cd backend-kelvin && npm ci
 
             - name: Install frontend dependencies
               run: cd frontend && npm ci
+
+            - name: Install Playwright browsers
+              run: npx playwright install --with-deps
 
             - name: Start backend server
               run: cd backend-kelvin && npm run start &
@@ -83,48 +41,11 @@ jobs:
             - name: Start frontend server
               run: cd frontend && npm run start &
 
-            - name: Wait for servers to start
-              run: |
-                  backend_up() {
-                    curl -s http://localhost:8080 > /dev/null
-                  }
-                  frontend_up() {
-                    curl -s http://localhost:3000 > /dev/null
-                  }
-                  until backend_up && frontend_up; do
-                    echo "Waiting for servers to start..."
-                    sleep 5
-                  done
-
-            - name: Install Nginx
-              run: sudo apt-get update && sudo apt-get install nginx -y
-
-            - name: Configure Nginx
-              run: |
-                  sudo bash -c "cat > /etc/nginx/sites-available/myapp <<EOF
-                  server {
-                      listen 80;
-                      listen [::]:80;
-                      server_name localhost;
-
-                      location / {
-                          proxy_pass http://localhost:8080;
-                          proxy_set_header Host $host;
-                          proxy_set_header X-Real-IP $remote_addr;
-                      }
-                  }
-                  EOF"
-                  sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
-
-            - name: Restart Nginx
-              run: sudo service nginx restart
-
-            - name: Wait for Nginx to start
-              run: sleep 5s
-
-            - name: Install Playwright dependencies
-              working-directory: './Test-Environment'
-              run: npm ci
-
             - name: Run tests
               run: cd frontend/tests && npx playwright test
+            - uses: actions/upload-artifact@v3
+              if: always()
+              with:
+                  name: playwright-report
+                  path: playwright-report/
+                  retention-days: 30
