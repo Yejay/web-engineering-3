@@ -6,6 +6,8 @@ const dotenv = require('dotenv').config();
 const cors = require('cors');
 
 const app = express();
+// Middlewares
+app.use('*', cors());
 
 const userService = require('./endpoints/user/UserService');
 const database = require('./database/Database');
@@ -26,8 +28,6 @@ const sslServer = https.createServer(
 	app
 );
 
-// Middlewares
-app.use('*', cors());
 
 // app.use(function (req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
