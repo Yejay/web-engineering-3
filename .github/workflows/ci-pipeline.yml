@@ -77,6 +77,8 @@ jobs:
 
             - name: Start backend server
               run: cd backend-kelvin && npm run start &
+              env:
+                  MONGO_URL: mongodb://localhost:27017
 
             - name: Start frontend server
               run: cd frontend && npm run start &
