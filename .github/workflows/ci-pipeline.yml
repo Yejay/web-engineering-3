@@ -48,7 +48,7 @@ jobs:
               run: sleep 60
 
             - name: Run tests
-              run: cd frontend/tests && npx playwright test
+              run: chmod +x ./frontend/wait-for-server-and-run-tests.sh
               # env:
               #     PLAYWRIGHT_BROWSERS_PATH: 0
             - uses: actions/upload-artifact@v3
