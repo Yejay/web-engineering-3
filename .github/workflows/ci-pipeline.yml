@@ -44,11 +44,8 @@ jobs:
             - name: Start frontend server
               run: cd frontend && npm run start &
 
-         
-
-            - name: Wait for server to start and run tests
-              run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://localhost:3000 -- cd frontend/tests && npx playwright test
-              # run: cd frontend/tests && npx playwright test
+            - name: Wait for frontend server to start and run tests
+              run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://localhost:3000 "cd frontend/tests && npx playwright test"
 
             - uses: actions/upload-artifact@v3
               if: always()
