@@ -14,33 +14,24 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
-            - name: Use Node.js 16.18.0
-              uses: actions/setup-node@v2
+            - name: Use Node.js 18
+              uses: actions/setup-node@v3
               with:
-                  node-version: 16.18.0
-
-            - name: Setup Playwright
-              uses: microsoft/playwright-github-action@v1
+                  node-version: 18
 
             - name: Check folder location
               run: ls
 
             - name: Install backend dependencies
               run: cd backend && npm ci
-              env:
-                  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
             - name: Install frontend dependencies
               run: cd frontend && npm ci
-              env:
-                  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
             - name: Install Playwright browsers
-              run: npx playwright install
-              env:
-                  PLAYWRIGHT_BROWSERS_PATH: 0
+              run: npx playwright install --with-deps
 
             - name: Start backend server
               run: cd backend && npm run start &
@@ -52,3 +43,9 @@ jobs:
 
             - name: Run tests
               run: cd frontend/tests && npx playwright test
+            - uses: actions/upload-artifact@v3
+              if: always()
+              with:
+                  name: playwright-report
+                  path: playwright-report/
+                  retention-days: 30
