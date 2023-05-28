@@ -41,8 +41,8 @@ jobs:
               env:
                   MONGO_URL: mongodb://localhost:27017
 
-            # - name: Start frontend server
-            #   run: cd frontend && npm run start &
+            - name: Start frontend server
+              run: cd frontend && npm run start &
 
             # - name: Start frontend server
             #   run: |
@@ -52,9 +52,11 @@ jobs:
             #   run: |
             #       tail -f frontend/server.log
 
-            - name: Wait for frontend server to start and run tests
-              run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://127.0.0.1:3000 "cd frontend/tests && npx playwright test"
+            # - name: Wait for frontend server to start and run tests
+            #   run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://127.0.0.1:3000 "cd frontend/tests && npx playwright test"
 
+            - name: Run tests
+              run: cd frontend/tests && npx playwright test
             - uses: actions/upload-artifact@v3
               if: always()
               with:
