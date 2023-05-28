@@ -42,7 +42,12 @@ jobs:
                   MONGO_URL: mongodb://localhost:27017
 
             - name: Start frontend server
-              run: cd frontend && npm run start &
+              run: |
+                  cd frontend
+                  npm run start > server.log 2>&1 &
+            - name: Output server logs
+              run: |
+                  tail -f frontend/server.log
 
             - name: Wait for frontend server to start and run tests
               run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://localhost:3000 "cd frontend/tests && npx playwright test"
