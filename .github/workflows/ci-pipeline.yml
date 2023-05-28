@@ -6,6 +6,9 @@ jobs:
     build-and-test:
         runs-on: ubuntu-latest
 
+        container:
+            image: mcr.microsoft.com/playwright:v1.34.3-jammy
+
         services:
             mongodb:
                 image: mongo:4.4
@@ -30,8 +33,8 @@ jobs:
             - name: Install frontend dependencies
               run: cd frontend && npm ci
 
-            - name: Install Playwright browsers
-              run: npx playwright install --with-deps
+            # - name: Install Playwright browsers
+            #   run: npx playwright install --with-deps
 
             - name: Start backend server
               run: cd backend-kelvin && npm run start &
