@@ -7,8 +7,8 @@ shift
 cmd="$@"
 
 until curl -s "$host" > /dev/null; do
-    echo "Waiting for $host to start"
-    sleep 1
+    echo "Waiting for $host to start. Please wait..."
+    sleep 10
 done
 
 >&2 echo "$host is up - executing command"
