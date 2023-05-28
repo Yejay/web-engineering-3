@@ -25,7 +25,7 @@ jobs:
               run: ls
 
             - name: Install backend dependencies
-              run: cd backend && npm ci
+              run: cd backend-kelvin && npm ci
 
             - name: Install frontend dependencies
               run: cd frontend && npm ci
@@ -34,7 +34,7 @@ jobs:
               run: npx playwright install --with-deps
 
             - name: Start backend server
-              run: cd backend && npm run start &
+              run: cd backend-kelvin && npm run start &
               env:
                   MONGO_URL: mongodb://localhost:27017
 
