@@ -22,7 +22,7 @@ jobs:
                   node-version: 16.18.0
 
             - name: Check folder location
-              run: cd ls
+              run: ls
 
             - name: Install backend dependencies
               run: cd web-engineering-3/backend-orlando-pinero && npm ci
