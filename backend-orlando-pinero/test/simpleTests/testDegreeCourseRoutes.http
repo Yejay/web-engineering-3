@@ -1,0 +1,54 @@
+# http://localhost:8080/
+
+# ###
+# http://localhost:8080/json
+
+// Rufe alle User ab. Zu Beginn sollten keine User in der Datenbank sein. 
+###
+GET http://localhost/api/degreeCourses
+
+// Lege ersten User an, der Administrator ist
+###
+POST http://localhost/api/degreeCourses
+Content-Type: application/json
+
+{
+    "id": "first",
+    "name": "Medieninformatik",
+    "universityName": "Berliner Hochschule für Technik",
+    "departmentName": "6"
+}
+
+// Rufe den User mit UserID admin ab. 
+###
+GET http://localhost/api/degreeCourses/first
+
+// Lege zweiten User an. Prüfe UserID sowie den Namen, ob die Angaben korrekt sind.
+###
+POST http://localhost/api/degreeCourses
+Content-Type: application/json
+
+{
+    "id": "manfred",
+    "name": "",
+    "universityName": "",
+    "departmentName": "asdf"
+}
+
+// Ändere beim zweiten User den User-Name. Zur Selektion des Users verwende die userID.
+###
+PUT http://localhost/api/degreeCourses/first
+Content-Type: application/json
+
+{
+    "departmentName": "Fachbereich 6",
+    "name": "Medien-Informatik"
+}
+
+// Rufe alle User ab. Es sollten 2 User zurückgegeben werden.
+###
+GET http://localhost/api/degreeCourses
+
+// Lösche den User mit der User-ID manfred
+###
+DELETE  http://localhost/api/degreeCourses/first

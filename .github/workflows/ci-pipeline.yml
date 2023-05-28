@@ -1,36 +1,39 @@
-name: CI Pipeline
+name: CI
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+    build-and-test:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        services:
+            mongodb:
+                image: mongo:4.4
+                ports:
+                    - 27017:27017
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
 
-      - name: Change working directory to frontend
-        working-directory: ./frontend
-        run: npm install
+            - name: Use Node.js 16.18.0
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 16.18.0
 
-      - name: Install Playwright
-        working-directory: ./frontend
-        run: npm install -D playwright
+            - name: Install backend dependencies
+              run: cd web-engineering-3/backend-orlando-pinero && npm ci
 
-      - name: Install Playwright Browsers
-        working-directory: ./frontend
-        run: npx playwright install
+            - name: Install frontend dependencies
+              run: cd web-engineering-3/frontend && npm ci
 
-      - name: Run Playwright tests
-        run: npx playwright test --config=playwright.config.js
-      
+            - name: Start backend server
+              run: cd web-engineering-3/backend-orlando-pinero && npm run start &
+              env:
+                  MONGO_URL: mongodb://localhost:27017
 
+            - name: Start frontend server
+              run: cd web-engineering-3/frontend && npm run start &
+
+            - name: Run tests
+              run: cd web-engineering-3/frontend/tests && npx playwright test
