@@ -1,3 +1,72 @@
+# name: CI
+
+# on: [push, pull_request]
+
+# jobs:
+#     build-and-test:
+#         runs-on: ubuntu-latest
+
+#         container:
+#             image: mcr.microsoft.com/playwright:v1.33.0-jammy
+#             options: --ipc=host
+
+#         services:
+#             mongodb:
+#                 image: mongo:4.4
+#                 ports:
+#                     - 27017:27017
+
+#         steps:
+#             - name: Checkout code
+#               uses: actions/checkout@v3
+
+#             - name: Use Node.js 16
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: 16
+
+#             - name: Check folder location
+#               run: ls
+
+#             - name: Install backend dependencies
+#               run: cd backend-kelvin && npm ci
+
+#             - name: Install frontend dependencies
+#               run: cd frontend && npm ci
+
+#             # - name: Install Playwright browsers
+#             #   run: npx playwright install --with-deps
+
+#             - name: Start backend server
+#               run: cd backend-kelvin && npm run start &
+#               env:
+#                   MONGO_URL: mongodb://localhost:27017
+
+#             - name: Start frontend server
+#               run: cd frontend && npm run start &
+
+#             - name: Wait for frontend server to start
+#               run: npx wait-on http://127.0.0.1:3000/
+
+#             # - name: Start frontend server
+#             #   run: |
+#             #       cd frontend
+#             #       npm run start > server.log 2>&1 &
+#             # - name: Output server logs
+#             #   run: |
+#             #       tail -f frontend/server.log
+
+#             # - name: Wait for frontend server to start and run tests
+#             #   run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://127.0.0.1:3000 "cd frontend/tests && npx playwright test"
+
+#             - name: Run tests
+#               run: cd frontend/tests && npx playwright test
+#             - uses: actions/upload-artifact@v3
+#               if: always()
+#               with:
+#                   name: playwright-report
+#                   path: playwright-report/
+#                   retention-days: 30
 name: CI
 
 on: [push, pull_request]
@@ -34,9 +103,6 @@ jobs:
             - name: Install frontend dependencies
               run: cd frontend && npm ci
 
-            # - name: Install Playwright browsers
-            #   run: npx playwright install --with-deps
-
             - name: Start backend server
               run: cd backend-kelvin && npm run start &
               env:
@@ -48,19 +114,12 @@ jobs:
             - name: Wait for frontend server to start
               run: npx wait-on http://127.0.0.1:3000/
 
-            # - name: Start frontend server
-            #   run: |
-            #       cd frontend
-            #       npm run start > server.log 2>&1 &
-            # - name: Output server logs
-            #   run: |
-            #       tail -f frontend/server.log
-
-            # - name: Wait for frontend server to start and run tests
-            #   run: chmod +x frontend/wait-for-server-and-run-tests.sh && frontend/wait-for-server-and-run-tests.sh http://127.0.0.1:3000 "cd frontend/tests && npx playwright test"
+            - name: Check if localhost:3000 is available
+              run: curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/
 
             - name: Run tests
               run: cd frontend/tests && npx playwright test
+
             - uses: actions/upload-artifact@v3
               if: always()
               with:
