@@ -112,7 +112,7 @@ jobs:
               run: cd frontend && npm run start &
 
             - name: Print frontend server ip
-              run: hostname -i && ping localhost
+              run: hostname -i
 
             - name: Wait for frontend server to start
               run: npx wait-on http://localhost:3000/
