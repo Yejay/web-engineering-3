@@ -44,6 +44,9 @@ jobs:
             - name: Start frontend server
               run: cd frontend && npm run start &
 
+            - name: Wait for frontend server to start
+              run: npx wait-on http://127.0.0.1:3000/
+
             # - name: Start frontend server
             #   run: |
             #       cd frontend
