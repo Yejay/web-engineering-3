@@ -115,7 +115,12 @@ jobs:
               run: npx wait-on http://127.0.0.1:3000/
 
             - name: Check if localhost:3000 is available
-              run: curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/
+              run: |
+                  curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/
+                  echo "Exit code: $?"
+
+            - name: Print frontend server logs
+              run: cat frontend/server.log
 
             - name: Run tests
               run: cd frontend/tests && npx playwright test
