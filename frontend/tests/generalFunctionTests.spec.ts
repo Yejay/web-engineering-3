@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 async function loginUser(page, userID, password) {
-	await page.goto('http://127.0.0.1:3000/');
+	await page.goto('http://127.0.0.1:3006/');
 	await page.locator('#OpenLoginDialogButton').click();
 	await page.fill('[placeholder="Enter user ID"]', userID);
 	await page.fill('[placeholder="Password"]', password);
