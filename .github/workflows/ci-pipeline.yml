@@ -112,17 +112,13 @@ jobs:
               run: cd frontend && npm run start &
 
             - name: Wait for frontend server to start
-              run: npx wait-on http://127.0.0.1:3000/
+              run: npx wait-on http://$HOST:3000/
 
-            - name: Check if localhost:3000 is available
-              id: check-availability
-              run: |
-                  curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/
-                  echo "Exit code: $?"
-
-            - name: Print frontend server logs
-              if: ${{ always() }}
-              run: cat frontend/server.log
+            # - name: Check if localhost:3000 is available
+            #   id: check-availability
+            #   run: |
+            #       curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000/
+            #       echo "Exit code: $?"
 
             - name: Run tests
               run: cd frontend/tests && npx playwright test
@@ -133,7 +129,3 @@ jobs:
                   name: playwright-report
                   path: playwright-report/
                   retention-days: 30
-
-            - name: Fail if localhost:3000 is not available
-              if: steps.check-availability.outputs.exit-code != '0'
-              run: exit 1
