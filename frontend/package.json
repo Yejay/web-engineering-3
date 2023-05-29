@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@playwright/test": "^1.33.0"
+    "@playwright/test": "^1.33.0",
+    "wait-on": "^7.0.1"
   }
 }
