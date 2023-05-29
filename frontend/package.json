@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",
+    "@types/node": "^20.2.5",
     "wait-on": "^7.0.1"
   }
 }
