@@ -30,11 +30,20 @@ async function createDegreeCourse(page, universityName, universityShortName, dep
 	await page.locator('#CreateDegreeCourseComponentCreateDegreeCourseButton').click();
 }
 
+// test('check for StartPage div', async ({ page }) => {
+// 	await loginUser(page, 'admin', '123');
+
+// 	// Wait for the StartPage div to be visible
+// 	await expect(page.locator('#StartPage')).toBeVisible();
+
+// 	// If the div is found, the test will pass. If the div is not found within the timeout period, the test will fail.
+// });
+
 test('check for StartPage div', async ({ page }) => {
 	await loginUser(page, 'admin', '123');
 
 	// Wait for the StartPage div to be visible
-	await expect(page.locator('#StartPage')).toBeVisible();
+	await page.waitForSelector('#StartPage', { timeout: 5000 });
 
 	// If the div is found, the test will pass. If the div is not found within the timeout period, the test will fail.
 });
