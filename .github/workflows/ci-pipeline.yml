@@ -43,7 +43,7 @@ jobs:
               run: |
                   echo "Waiting for API to start..."
                   sleep 10 # Wait for the server to start
-                  curl -i https://localhost:1026/api/authenticate
+                  curl --insecure -i https://localhost:1026/api/authenticate
 
             - name: Start frontend server
               run: cd frontend && npm run start &
