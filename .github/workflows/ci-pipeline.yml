@@ -48,11 +48,20 @@ jobs:
             - name: Start frontend server
               run: cd frontend && npm run start &
 
+            - name: Test frontend server reachability
+              run: |
+                  echo "Waiting for frontend server to start..."
+                  sleep 10
+                  curl -i http://localhost:3000
+
             - name: Print frontend server ip
               run: hostname -i
 
             - name: Wait for frontend server to start
               run: npx wait-on http://localhost:3000/
+
+            - name: Install playwright
+              run: npx playwright install
 
             - name: Run tests
               run: cd frontend/tests && npx playwright test
