@@ -6,9 +6,9 @@ jobs:
     build-and-test:
         runs-on: ubuntu-latest
 
-        container:
-            image: mcr.microsoft.com/playwright:v1.33.0-jammy
-            options: --ipc=host
+        # container:
+        #     image: mcr.microsoft.com/playwright:v1.33.0-jammy
+        #     options: --ipc=host
 
         services:
             mongodb:
