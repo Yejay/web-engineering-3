@@ -9,7 +9,7 @@ import ApplicationManagementPage from './react/applicationEntity/components/Appl
 
 function App() {
 	const user = useSelector((state) => state.auth.user);
-
+	// Codespace test
 	const main = user ? (
 		<Routes>
 			<Route path='/' element={<PrivatePage />} />
