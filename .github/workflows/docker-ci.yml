@@ -58,7 +58,7 @@ jobs:
                   docker exec -t web-engineering-3_frontend_1 npx playwright install-deps
 
             - name: Run tests
-              run: docker exec -t web-engineering-3_frontend_1 npx playwright test --headed > test-output.txt
+              run: docker exec -t web-engineering-3_frontend_1 npx playwright test
 
             - name: Upload test output artifact
               uses: actions/upload-artifact@v2
