@@ -17,7 +17,7 @@ const config: PlaywrightTestConfig = defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: 1,
 
-	reporter: 'list',
+	reporter: process.env.CI ? 'dot' : 'list',
 	use: {
 		trace: 'on',
 		headless: true,
