@@ -54,5 +54,5 @@ jobs:
 
             - name: Run tests
               run: |
-                  docker exec -t frontend npm install
-                  docker exec -t frontend npx playwright test
+                  docker exec -t web-engineering-3_frontend_1 npm install
+                  docker exec -t web-engineering-3_frontend_1 npx playwright test
