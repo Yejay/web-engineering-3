@@ -52,7 +52,11 @@ jobs:
             - name: Build the stack
               run: docker-compose -f docker-compose.yml up -d
 
-            - name: Run tests
+            - name: Install dependencies and browsers
               run: |
                   docker exec -t web-engineering-3_frontend_1 npm install
-                  docker exec -t web-engineering-3_frontend_1 npx playwright test
+                  docker exec -t web-engineering-3_frontend_1 npx playwright install
+
+            - name: Run tests
+              run: docker exec -t web-engineering-3_frontend_1 npx playwright test --quiet
+                
