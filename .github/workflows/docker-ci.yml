@@ -6,6 +6,10 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
+        container:
+            image: mcr.microsoft.com/playwright:v1.33.0-jammy
+            options: --ipc=host
+
         steps:
             - uses: actions/checkout@v2
 
