@@ -4,21 +4,22 @@ const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
-// Middlewares
-app.use('*', cors());
+
+const database = require('./database/Database');
 
 const userService = require('./endpoints/user/UserService');
-const database = require('./database/Database');
 
 const userRoutes = require('./endpoints/user/UserRoute');
 const publicUserRoutes = require('./endpoints/user/PublicUserRoute');
 const authenticationRoutes = require('./endpoints/authentication/AuthenticationRoute');
-const degreeCourseRoutes = require('./endpoints/degreeCourse/degreeCourseRoute');
-const degreeCourseApplicationRoutes = require('./endpoints/degreeCourseApplication/degreeCourseApplicationRoute');
+const degreeCourseRoutes = require('./endpoints/degreeCourse/DegreeCourseRoute');
+const degreeCourseApplicationRoutes = require('./endpoints/degreeCourseApplication/DegreeCourseApplicationRoute');
 
-const PORT = process.env.HTTPSPORT;
+const HTTPPORT = process.env.HTTPPORT;
+const HTTPSPORT = process.env.HTTPSPORT;
 
 const sslServer = https.createServer(
 	{
@@ -28,13 +29,17 @@ const sslServer = https.createServer(
 	app
 );
 
+// Middlewares
+app.use('*', cors());
+app.use('', cors());
 
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     res.header("Access-Control-Expose-Headers", "Authorization");
-//     next();
-// });
+app.use(function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	res.header('Access-Control-Expose-Headers', 'Authorization');
+	next();
+});
+app.use(bodyParser.json());
 
 app.use(express.json());
 app.use('/api/users', userRoutes);
@@ -47,8 +52,14 @@ app.use((req, res) => {
 	res.status(404).json({ error: 'This route does not exist!' });
 });
 
+app.listen(HTTPPORT, () => {
+	console.log('Http app listening on port http://localhost/80');
+});
 console.log('\n--------------------------------------------------------------------------');
-sslServer.listen(PORT, () => console.log(`SECURE SERVER ON PORT: ${PORT}`));
+sslServer.listen(HTTPSPORT, () => {
+	console.log(`SECURE SERVER ON PORT: ${HTTPSPORT}`);
+	console.log(`Example app listening on port https://localhost:${HTTPSPORT}`);
+});
 
 database.initializeDatabase((err, db) => {
 	if (db) {

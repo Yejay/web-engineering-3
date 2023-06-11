@@ -58,12 +58,6 @@ app.use('/api/degreeCourses', degreeCourseRoutes);
 app.use('/api/authenticate', authenticateRoute);
 app.use('/api/degreeCourseApplications', degreeCourseApplicationRoutes);
 
-/**
- * Serverseitige Error Handlers:
- *
- *  1. Serverseitiger Fehler
- *  2. Userseitiger Fehler
- */
 app.use(function (err, req, res, next) {
 	console.error(err.stack);
 	res.status(500).send('Something went wrong on our side. :( Sorry!');
@@ -75,25 +69,16 @@ app.use(function (err, req, res, next) {
 
 const server = https.createServer({ key: key, cert: cert }, app);
 
-// app.get('/', (req, res) => { res.send('this is an secure server') })
-
 // original port 80
-app.listen(1025, () => {
-	console.log('Http app listening on port http://localhost/1025');
+app.listen(80, () => {
+	console.log('Http app listening on port http://localhost/80');
 });
 
 // App Start
 // original port 443
-const port = 1026;
+const port = 443;
 server.listen(port, () => {
 	console.log(`Example app listening on port https://localhost:${port}`);
 	console.log(new Date().toISOString());
 	console.log('========================================================================================');
 });
-
-// const portHTTP = 80
-// app.listen(port, () => {
-//     console.log(`Example app listening on port http://localhost:${portHTTP}`)
-//     console.log(new Date().toISOString())
-//     console.log("========================================================================================")
-// })
