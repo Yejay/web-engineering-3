@@ -1,3 +1,5 @@
+# Outdated workflow, kept for reference
+
 # name: CI
 
 # on: [push, pull_request]

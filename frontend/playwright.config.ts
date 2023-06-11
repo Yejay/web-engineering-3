@@ -48,6 +48,7 @@ const config: PlaywrightTestConfig = defineConfig({
 		},
 	],
 
+	// Use this to automatically start a web server for tests.
 	/* Run your local dev server before starting the tests */
 	// webServer: {
 	// 	command: 'npm run start',
