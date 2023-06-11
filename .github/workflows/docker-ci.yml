@@ -87,7 +87,12 @@ jobs:
             - name: Build and start services with Docker Compose
               run: docker-compose up -d
 
+            - name: Install dependencies
+              run: npm install
+              working-directory: frontend
+            
             - name: Run tests
               run: npx playwright test
               working-directory: frontend
+            
             
