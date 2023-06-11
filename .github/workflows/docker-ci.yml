@@ -88,4 +88,6 @@ jobs:
               run: docker-compose up -d
 
             - name: Run tests
-              run: npm run test
+              run: npx playwright test
+              working-directory: frontend
+            
