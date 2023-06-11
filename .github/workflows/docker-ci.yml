@@ -55,8 +55,13 @@ jobs:
             - name: Install dependencies and browsers
               run: |
                   docker exec -t web-engineering-3_frontend_1 npm install
-                  docker exec -t web-engineering-3_frontend_1 npx playwright install
+                  docker exec -t web-engineering-3_frontend_1 npx playwright install-deps
 
             - name: Run tests
-              run: docker exec -t web-engineering-3_frontend_1 npx playwright test --quiet
-                
+              run: docker exec -t web-engineering-3_frontend_1 npx playwright test --headed > test-output.txt
+
+            - name: Upload test output artifact
+              uses: actions/upload-artifact@v2
+              with:
+                  name: test-output
+                  path: test-output.txt
