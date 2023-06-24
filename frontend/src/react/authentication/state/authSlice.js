@@ -26,12 +26,24 @@ const authSlice = createSlice({
 			state.loginPending = true;
 			state.error = null;
 		},
+		// authSuccessAction: (state, action) => {
+		// 	state.showLoginDialog = false;
+		// 	state.loginPending = false;
+		// 	console.log(state.userID);
+		// 	console.log(state.user);
+		// 	state.user = action.payload.user;
+		// 	state.accessToken = action.payload.accessToken;
+		// },
 		authSuccessAction: (state, action) => {
 			state.showLoginDialog = false;
 			state.loginPending = false;
-			state.user = action.payload.user;
+			state.user = {
+				userID: action.payload.user.user,
+				...action.payload.user,
+			};
 			state.accessToken = action.payload.accessToken;
 		},
+
 		authErrorAction: (state, action) => {
 			state.loginPending = false;
 			state.error = action.payload;

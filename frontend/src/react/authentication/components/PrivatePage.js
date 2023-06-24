@@ -17,6 +17,7 @@ const PrivatePage = () => {
 					Welcome to
 					<img src={require('../../../img/BHT_Logos_PNG/BHT_PNG_144ppi/BHT_Logo_horizontal_Negativ_RGB_144ppi.png')} alt='bht logo' />
 					{user && user.userID && user.userID.toUpperCase()}
+					{/* {user && user.user && user.user.toUpperCase()} */}
 				</h1>
 				<p className='lead'>We are a leading institution in the field of higher education, offering a wide range of degree programs for students to choose from.</p>
 				<hr className='my-4' />

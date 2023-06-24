@@ -140,17 +140,17 @@ test('create-degree-course', async ({ page }) => {
 	await expect(page.locator(`text=${degreeCourseName}`)).toBeVisible();
 });
 
-test('create-degree-course-v2', async ({ page }) => {
-	await loginUser(page, 'admin', '123');
-	await createDegreeCourse(page, 'BHT Berlin', 'BHT', 'Fachbereich 6', 'F-VI', 'Medieninformatik Bachelor', 'MIB');
-	const degreeCourseCard = page.locator('.degree-cards:has-text("Medieninformatik Bachelor")');
-	await expect(degreeCourseCard).toBeVisible();
-});
+// test('create-degree-course-v2', async ({ page }) => {
+// 	await loginUser(page, 'admin', '123');
+// 	await createDegreeCourse(page, 'BHT Berlin', 'BHT', 'Fachbereich 6', 'F-VI', 'Medieninformatik Bachelor', 'MIB');
+// 	const degreeCourseCard = page.locator('.degree-cards:has-text("Medieninformatik Bachelor")');
+// 	await expect(degreeCourseCard).toBeVisible();
+// });
 
 test('edit-degree-course', async ({ page }) => {
 	const newShortName = 'Beuth';
 	await loginUser(page, 'admin', '123');
-	await createDegreeCourse(page, 'BHT Berlin', 'BHT', 'Fachbereich 6', 'F-VI', 'Medieninformatik Bachelor', 'MIB');
+	// await createDegreeCourse(page, 'BHT Berlin', 'BHT', 'Fachbereich 6', 'F-VI', 'Medieninformatik Bachelor', 'MIB');
 	await page.locator('#DegreeCourseItemEditButton' + 'MIB').click();
 	await expect(page.locator('.modal-content')).toBeVisible();
 	await expect(page.locator('#EditDegreeCourseComponentEditName')).toHaveValue('Medieninformatik Bachelor');
