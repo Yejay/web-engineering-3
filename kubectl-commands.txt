@@ -1,0 +1,7 @@
+kubectl get deployments --namespace pwa-yejay
+kubectl get pods --namespace pwa-yejay
+kubectl get services --namespace pwa-yejay
+
+kubectl scale deployment/backend --replicas=3 --namespace pwa-yejay
+
+kubectl port-forward service/backend 3000:80 --namespace pwa-yejay
