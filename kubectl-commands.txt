@@ -5,3 +5,10 @@ kubectl get services --namespace pwa-yejay
 kubectl scale deployment/backend --replicas=3 --namespace pwa-yejay
 
 kubectl port-forward service/backend 3000:80 --namespace pwa-yejay
+
+
+Fürs Deployment speziell:
+kubectl apply -f mongo-deployment.yaml --namespace pwa-yejay
+kubectl apply -f mongo-service.yaml --namespace pwa-yejay
+kubectl apply -f backend-deployment.yaml --namespace pwa-yejay
+kubectl apply -f backend-service.yaml --namespace pwa-yejay
